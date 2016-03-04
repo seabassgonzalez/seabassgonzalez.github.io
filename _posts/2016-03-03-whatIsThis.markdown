@@ -4,7 +4,7 @@ title:  "What is 'this'?"
 date:   2016-03-02 22:47:43 -0800
 categories: jekyll update
 ---
-Completing the pre-coursework curriculum has been a daunting challenge, especially with the pressing cohort start date. Working full time really takes nearly <em>all</em> time and it’s been difficult squeezing in spurts of productive learning. Before finding my way to Telegraph Academy, I had tried my hand at many tutorial courses, katas, and attended a few of Hack Reactor’s [Algorithm Study Groups](http://www.meetup.com/hackreactor/events/228753374/), but the first sprint and assessment required deeper comfort with the material right off the bat.
+Completing the pre-coursework curriculum has been a daunting challenge, especially with the pressing cohort start date. Working full time really takes nearly <em>all</em> time and it’s been difficult squeezing in spurts of productive learning. Before finding my way to Telegraph Academy, I had tried my hand at many tutorial courses, katas, and attended a few of Hack Reactor’s [Algorithm Study Groups](http://www.meetup.com/hackreactor/events/228753374/), but the first sprint and assessment required deeper comfort with the material right off the bat. More time commitment is necessary.
 
 The hands-on emphasis using live professional tools, languages, and technologies sped my trajectory enormously. It’s clear that we’ll hit the ground running on Day 1 – beyond the obvious familiarity with github, the command line, and basic Javascript syntax and patterns, we've been required to show growing comfort with more general Computer Science concepts.
 
@@ -18,13 +18,17 @@ Consider the example below:
 
 {% highlight javascript %}
 
+// Some initial object
 var someObject = {
+  // Contains a method which accepts two arguments as parameters
   someFunction: function(a, b){
+    // Logs value bound to 'this' to the console
     console.log(this);
   }
 };
 
 var aSecondObject = {
+  // An example method in an external second object holding the function containing 'this'
   aContainedMethod: someObject.someFunction
 };
 
@@ -51,8 +55,10 @@ var aSecondObject = {
   aContainedMethod: someObject.someFunction
 };
 
+// Some objects to work with
 var manzana = {}, naranja = {}, platano = {};
 
+// Calling someFunction() using the two objects
 someObject.someFunction(naranja, platano);
 
 {% endhighlight %}
