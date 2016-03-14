@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Recursive Fib"
-date:   2016-03-02 21:43:00 -0800
+date:   2016-03-13 22:33:00 -0800
 categories: jekyll update
 ---
 
