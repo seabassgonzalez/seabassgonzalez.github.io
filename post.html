@@ -11,8 +11,14 @@
 
     <title>Clean Blog - Sample Post</title>
 
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="/path/to/styles/default.css">
 
     <!-- Custom CSS -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
@@ -90,40 +96,117 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+                    <p>Completing the pre-coursework curriculum has been a daunting challenge, especially with the pressing cohort start date. Working full time really takes nearly <em>all</em> time and it’s been difficult squeezing in spurts of productive learning. Before finding my way to Telegraph Academy, I had tried my hand at many tutorial courses, katas, and attended a few of Hack Reactor’s <a href="http://www.meetup.com/hackreactor/events/228753374/">Algorithm Study Groups</a>, but the first sprint and assessment required deeper comfort with the material right off the bat. More time commitment is necessary.</p>
 
-                    <p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+                    <p>The hands-on emphasis using live professional tools, languages, and technologies sped my trajectory enormously. It’s clear that we’ll hit the ground running on Day 1: beyond the obvious familiarity with github, the command line, and basic Javascript syntax and patterns, we've been required to show growing comfort with more general Computer Science concepts.</p>
 
-                    <p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
+                    <p>Working through the material, I immediately came across difficulties– a strong grasp of scopes, 'this', and recursion is just the start! While many of the skills and concepts we hope to master are applicable in countless other coding languages, we must overcome the nuances of Javascript in particular. Two early projects require us to rewrite the <a href="http://underscorejs.org/">Underscore.js</a> library, and create a simple Twitter clone using <a href="https://jquery.com/">jQuery</a></p>
 
-                    <p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
+                    <p>These two Sprints ultimately required me to spend time Googling the use of arguments and the means to share information between functions. I quickly found my solution depended totally on the methods <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call">.call()</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply">.apply()</a>, the standard tools for this problem. To be able to use these nifty functions, we have to understand the keyword <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">‘this’</a> and I was surprised how murky its explanations can be.</p>
 
-                    <p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
+                    <p>Although it was clear that ‘this’ “mostly behaves as a parameter.” The specifics are a bit more complex. The discussion provided by the Hack Reactor material was definitely the clearest, but they made sure to explain what it ISN’T before revealing the extra simple answer for what it IS.</p>
 
                     <h2 class="section-heading">The Final Frontier</h2>
 
-                    <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
-
-                    <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
-
                     <blockquote>The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</blockquote>
-
-                    <p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
-
-                    <h2 class="section-heading">Reaching for the Stars</h2>
-
-                    <p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p>
 
                     <a href="#">
                         <img class="img-responsive" src="img/post-sample-image.jpg" alt="">
                     </a>
                     <span class="caption text-muted">To go places and do things that have never been done before – that’s what living is all about.</span>
+                
+<pre>
+// Some initial object
+  // Contains a method which accepts two arguments as parameters
+    // Logs value bound to 'this' to the console
 
-                    <p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
+// An example method in an external second object holding the function containing 'this'
+<code>
+var someObject = {
+  someFunction: function(a, b){
+    console.log(this);
+  }
+};
 
-                    <p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
+var aSecondObject = {
+  aContainedMethod: someObject.someFunction
+};
+</code>
+</pre>
 
-                    <p>Placeholder text by <a href="http://spaceipsum.com/">Space Ipsum</a>. Photographs by <a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
+                    <p>When we’re referring to ‘this’, we’re NOT referring to the following:</p>
+
+                    <p>
+                        <ul>
+                            <li>The function object ‘this’ appears within (e.g. someObject{})</li>
+                            <li>If ‘this’ is part a method, or within another object, <em>that</em> object 'this' is within (e.g. someFunction( ) )</li>
+                            <li>A ‘new instance’ of the function where ‘this’ appears within  (e.g. someFunction( ) at run time)</li>
+                            <li>An object that might happen to have the 'this's containing function as property (e.g. aSecondObject( ) )</li>
+                        </ul>
+                    </p>
+                    <p>To understand ‘this’ we need to appreciate the fact that it’s <em>ONLY</em> bound to a value, it only means anything, when the function runs at call time. Consider the following, while passing some objects to work with:</p>
+                    
+<pre>
+<code>
+var someObject = {
+  someFunction: function(a, b){
+    console.log(this);
+  }
+};
+
+var aSecondObject = {
+  aContainedMethod: someObject.someFunction
+};
+</code>
+// Some objects to work with
+var manzana = {}, naranja = {}, platano = {};
+
+// Calling someFunction() using the two objects
+someObject.someFunction(naranja, platano);
+</pre>
+
+                    <p>'this' is bound <em>only</em> at the point at which it's called.</p>
+
+<pre>
+<code>
+
+someObject.someFunction(naranja, platano);
+
+</code>
+</pre>
+
+                    <p>Finally, ‘this’ is tied to the object <em>"directly to the left of the dot (or brackets) at invocation"</em> and 'this' is bound to someObject{}</p>
+
+                    <p>In fact the most common way we’ll encounter ‘this’ in the wild is when it’s housed as a parameter to the invocation of an object’s method function. Consider the following:</p>
+
+<pre>
+<code>
+
+var someObject = {
+  someFunction: function(a, b){
+    console.log(this);
+  }
+};
+
+var aSecondObject = {
+  aContainedMethod: someObject.someFunction
+};
+
+var manzana = {}, naranja = {}, platano = {};
+
+manzana.method = someObject;
+
+manzana.method(naranja, platano); // Console logs "manzana", "naranja", and "platano"
+
+</code>
+</pre>
+
+                    <p>By making someFunction a method of another object, we can clearly see how 'this' is bound to the invoking object: it gets logged in our example :D</p>
+
+                    <p>‘This’ is an exceptionally intuitive, although easily confused identifier; I hope to more adequately dig into how ‘this’ empowered me to rewrite the Underscore.js library and recreate a simple Twitter clone, but I’ve much to accomplish in a very short amount of time, I'll have to circle back. Wish me calm seas and a steady wind.</p>
+
+                    <p>Sebastián</p>
+
                 </div>
             </div>
         </div>
@@ -174,8 +257,20 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+    <!-- Highlight.js -->
+    <script src="/path/to/highlight.pack.js"></script>
+
     <!-- Custom Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
+    
+    <!-- Highlight.js init with jQuery -->
+    <script>
+        $(document).ready(function() {
+            $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
+        });
+    </script>
 
 </body>
 
