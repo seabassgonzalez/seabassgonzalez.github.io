@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+alphabet=$(echo {{a..z},{A..Z}})
+alphabet=($alphabet)
+classes='
+  Title-separator
+  Title-Center-right
+  Title-Center-left
+  Title-Center
+  Title-big
+  Title-small
+  ShadedTitle
+  Title
+  Work-image
+  Work-text
+  Work-description
+  Work-subtitle
+  Work-title
+  Work-links
+  Work-link
+  container
+  heading
+  Social-link
+  Scene--bottom
+  Scene-mountains--bottom
+  text-center
+  Scene-sky
+  Contact-heading
+  Nav-link
+  Footer-link
+'
+html=$(cat public/index.html)
+css=$(cat public/css/style.css)
+incr=0
+for class in $classes
+do
+  char=${alphabet[$incr]}
+  html=$(echo $html | sed -e "s/$class/$char/g")
+  css=$(echo $css | sed -e "s/$class/$char/g")
+  ((incr++))
+done
+
+echo $css > public/css/style.css
+echo $html > public/index.html

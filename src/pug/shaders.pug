@@ -1,0 +1,75 @@
+script(id='vs',type='x-shader/vertex').
+  attribute vec3 position;void main(){gl_Position=vec4(position,1.0);}
+
+script(id='fs',type='x-shader/fragment').
+  uniform float t;
+  uniform float s;
+  uniform float sunSize;
+  uniform vec2 r;
+  uniform sampler2D i;
+
+  float power(float value,float p){
+    float f=floor(value);
+    float r=value-f;
+    if(r>0.5){
+      r=(r*2.0)-1.0;
+      r=pow(r,1.0/p);
+      r=(r/2.0)+0.5;
+    }else{
+      r*=2.0;
+      r=pow(r,p);
+      r/=2.0;
+    }
+    return r+f;
+  }
+  vec3 getDisplacement(float dist){
+    float global=(dist*6.0)-t*0.9;
+    float distortion=(sin(global*2.0-(t*0.5))+1.0)*0.55;
+    float distorted=global-(distortion*0.45);
+    float local=distorted-floor(distorted);
+    float stripedDistance=mod(local*4.0,1.0);
+    float striped=(power(local*4.0,12.0)+-0.4)/4.0;
+    return vec3(striped,stripedDistance,local);
+  }
+  void main(){
+    vec2 pos=gl_FragCoord.xy/r;
+    pos.y-=0.5/r.y;
+    pos=vec2(pos.x,1.0-pos.y);
+    if(pos.y>0.5){
+      float dist=(pos.y-0.5)/0.5;
+      vec3 displacement=getDisplacement(dist);
+      float w=displacement.x;
+      pos.y+=w*0.35*dist*s;
+    }else{
+      float sunDistance=(sunSize/r.x)*0.75;
+      float falloff=2.5;
+      falloff=1.0+falloff;
+      float p=1.0-(abs(pos.x-0.5)/(sunDistance*falloff));
+      if(p>0.0){
+        float cutoff=1.0-(1.0/falloff);
+        if(p>cutoff){
+          p=1.0;
+        }else{
+          p=(p/cutoff);
+          p=pow(p,2.0);
+          p*=0.2;
+        }
+        pos.x+=sin((t*7.0)+(pos.y*150.0))*(sunDistance*0.1)*p*s;
+      }
+    }
+    vec4 textureColor=texture2D(i,pos);
+    float a=textureColor.a;
+    if(a<1.0){
+      vec3 matte=vec3(1.0,0.92,0.85);
+      float a2=a*1.0;
+      float sunDistance=(sunSize/r.x)*0.85;
+      float p=1.0-(abs(pos.x-0.5)/sunDistance);
+      if(p>0.0){
+        a2=a*0.0;
+      }
+      textureColor=vec4((textureColor.rgb*a2)+(matte*(1.0-a2)),a);
+    }
+    gl_FragColor=vec4(textureColor.rgb*textureColor.a,textureColor.a);
+  }
+
+

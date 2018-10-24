@@ -1,0 +1,29 @@
+{
+  "name": "sitelucas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "mkdir -p public/img && mkdir -p public/css && mkdir -p public/js",
+    "pug": "pug src/pug/index.pug -o public/",
+    "svg": "svgo -f src/svg/ -o public/img/",
+    "css": "stylus src/stylus/main.styl -c -o public/css/style.css",
+    "js": "uglifyjs src/js/main.js --mangle --compress passes=3 --source-map public/js/main.map.js --source-map-url /js/main.map.js -o public/js/main.js",
+    "build": "npm run pug && npm run svg && npm run css && npm run js",
+    "package": "npm run build && ./munch",
+    "start": "serve --compress public/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "pug": "^2.0.0-beta6",
+    "pug-cli": "^1.0.0-alpha6",
+    "serve": "^1.4.0",
+    "stylus": "^0.54.5",
+    "svgo": "^0.7.1",
+    "uglify-js": "^2.7.3"
+  }
+}
